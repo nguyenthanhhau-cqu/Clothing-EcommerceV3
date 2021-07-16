@@ -1,6 +1,6 @@
 import React from 'react';
 import SHOP_DATA from "./shopData";
-import CollectionPreview from "../collection-preview/CollectionPreview";
+import CollectionPreview from "../../components/collection-preview/CollectionPreview";
 
 const Shop = () => {
     return <div>
