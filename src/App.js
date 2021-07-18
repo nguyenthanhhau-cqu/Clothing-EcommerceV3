@@ -5,18 +5,33 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Shop from "./pages/shop/Shop";
 import Navigator from "./components/NavigationBar/Navigator";
 import SignInAndSignUp from "./pages/SignIn-SignUp-page/SignInAndSignUp";
-import { auth } from "./firebase/firebaseUtils";
+import { auth, createUserProfile } from "./firebase/firebaseUtils";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
-    currentUser: "",
+    currentUser: {},
   });
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setCurrentUser({ currentUser: user });
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        setCurrentUser({ currentUser: user });
+      } else {
+        const userRef = await createUserProfile(user);
+
+        userRef.onSnapshot((snapShot) => {
+          // to get the obj of user
+          setCurrentUser({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          });
+        });
+      }
     });
   }, []);
+  console.log(currentUser);
 
   return (
     <Router>
