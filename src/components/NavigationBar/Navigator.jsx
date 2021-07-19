@@ -3,6 +3,7 @@ import { ReactComponent as Logo } from "../LogoSVG/crown.svg";
 import { Link } from "react-router-dom";
 import "./NavigatorStyles.scss";
 import { auth } from "../../firebase/firebaseUtils";
+import { connect } from "react-redux";
 
 const Navigator = ({ isAuthenticated }) => (
   <div className="header">
@@ -28,4 +29,9 @@ const Navigator = ({ isAuthenticated }) => (
     </div>
   </div>
 );
-export default Navigator;
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Navigator);
