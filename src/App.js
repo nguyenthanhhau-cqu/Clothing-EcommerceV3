@@ -13,6 +13,7 @@ import SignInAndSignUp from "./pages/SignIn-SignUp-page/SignInAndSignUp";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user-reducer/userAction";
+import CheckOut from "./components/check-out-page/CheckOut";
 
 function App({ setCurrentUser, currentUser }) {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App({ setCurrentUser, currentUser }) {
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route exact path="/shop" component={Shop} />
+        <Route exact path="/checkout" component={CheckOut} />
         <Route
           exact
           path="/login"
