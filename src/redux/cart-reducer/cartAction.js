@@ -1,5 +1,10 @@
-import { ADD_ITEM, CLEAR_ITEM, DECREASE_ITEM } from "./cartType";
+import { ADD_ITEM, CLEAR_ITEM, DECREASE_ITEM, HIDDEN_CART } from "./cartType";
 
+export const cartHidden = () => (dispatch) => {
+  dispatch({
+    type: HIDDEN_CART,
+  });
+};
 export const addItem = (item) => (dispatch) => {
   dispatch({
     type: ADD_ITEM,

@@ -1,14 +1,20 @@
-import { ADD_ITEM, CLEAR_ITEM, DECREASE_ITEM } from "./cartType";
+import { ADD_ITEM, CLEAR_ITEM, DECREASE_ITEM, HIDDEN_CART } from "./cartType";
 import { cartIteAdded, decreaseItem } from "../utils/cartItemAdded";
 
 const initialState = {
   item: [],
+  hidden: false,
 };
 
 export const cartReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case HIDDEN_CART:
+      return {
+        ...state,
+        hidden: !state.hidden,
+      };
     case ADD_ITEM:
       return {
         ...state,

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./CheckOutStyle.scss";
 import { connect } from "react-redux";
 import CheckOutItem from "../check-out-items/CheckOutItem";
 import StripeCheckoutButton from "../../components/stripeButton/StripeButton";
-
-const CheckOut = ({ totalPrice, cartItem }) => {
+import { cartHidden } from "../../redux/cart-reducer/cartAction";
+const CheckOut = ({ totalPrice, cartItem, cartHidden }) => {
+  useEffect(() => cartHidden(), [cartHidden]);
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -47,4 +48,4 @@ const mapStateToProps = (state) => ({
   cartItem: state.cart.item,
 });
 
-export default connect(mapStateToProps)(CheckOut);
+export default connect(mapStateToProps, { cartHidden })(CheckOut);

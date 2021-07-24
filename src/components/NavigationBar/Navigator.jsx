@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ReactComponent as Logo } from "../Assets/crown.svg";
 import { Link } from "react-router-dom";
 import "./NavigatorStyles.scss";
@@ -6,10 +6,9 @@ import { auth } from "../../firebase/firebaseUtils";
 import { connect } from "react-redux";
 import CartIcon from "../Cart-icon/CarIcon";
 import CartDropdown from "../cart-dropdown/CartDropdown";
+import { cartHidden } from "../../redux/cart-reducer/cartAction";
 
-const Navigator = ({ isAuthenticated }) => {
-  const [carDropdown, setCartDropdown] = useState(false);
-
+const Navigator = ({ isAuthenticated, cartDropDown, cartHidden }) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -31,10 +30,10 @@ const Navigator = ({ isAuthenticated }) => {
             SIGN IN
           </Link>
         )}
-        <div onClick={() => setCartDropdown(!carDropdown)}>
+        <div onClick={() => cartHidden()}>
           <CartIcon />
         </div>
-        {carDropdown && <CartDropdown />}
+        {cartDropDown && <CartDropdown />}
       </div>
     </div>
   );
@@ -42,6 +41,7 @@ const Navigator = ({ isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user.currentUser,
+  cartDropDown: state.cart.hidden,
 });
 
-export default connect(mapStateToProps)(Navigator);
+export default connect(mapStateToProps, { cartHidden })(Navigator);
