@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { collectionAction } from "../../redux/CollectionReducer/collectionAction";
 
 const ShopPreview = ({ collectionAction, collection }) => {
-  useEffect(() => collectionAction());
+  useEffect(() => collectionAction(),[collectionAction]);
 
   return (
     <div className="shop-page">
@@ -15,8 +15,8 @@ const ShopPreview = ({ collectionAction, collection }) => {
   );
 };
 const mapStateToProps = (state) => ({
-  collection: Object.keys(state.collection.collections).map(
+  collection: state.collection.collections ? Object.keys(state.collection.collections).map(
     (key) => state.collection.collections[key]
-  ),
+  ) : []
 });
 export default connect(mapStateToProps, { collectionAction })(ShopPreview);

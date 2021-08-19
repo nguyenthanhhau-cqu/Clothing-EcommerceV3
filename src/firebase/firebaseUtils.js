@@ -16,7 +16,19 @@ firebase.initializeApp(config);
 
 export const auth = firebase.auth();
 export const fireStore = firebase.firestore();
+export const addCollectionAndDoc = async (collectionKey, objectToAdd) => {
+  const collectionRef = fireStore.collection(collectionKey);
 
+  const batch = fireStore.batch();
+
+  console.log(collectionRef);
+
+  objectToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj); // assign obj value to document
+  });
+  return await batch.commit(); // return a promise to resolve the null value
+};
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 export const SignInWithGoogle = () => auth.signInWithPopup(provider);
@@ -44,6 +56,23 @@ export const createUserProfile = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
 };
 
 export default firebase;
