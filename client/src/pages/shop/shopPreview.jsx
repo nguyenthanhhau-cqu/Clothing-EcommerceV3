@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CollectionPreview from "../../components/collection-preview/CollectionPreview";
 import { connect } from "react-redux";
-import { collectionAction } from "../../redux/CollectionReducer/collectionAction";
 
-const ShopPreview = ({ collectionAction, collection }) => {
-  useEffect(() => collectionAction(),[collectionAction]);
+const ShopPreview = ({  collection }) => {
+  console.log(collection)
 
   return (
     <div className="shop-page">
@@ -19,4 +18,4 @@ const mapStateToProps = (state) => ({
     (key) => state.collection.collections[key]
   ) : []
 });
-export default connect(mapStateToProps, { collectionAction })(ShopPreview);
+export default connect(mapStateToProps, null)(ShopPreview);
