@@ -1,19 +1,14 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { displayCollection } from "../../redux/CollectionReducer/collectionAction.js";
+import React, { useContext } from "react";
 import "./CollectionStyle.scss";
 import CollectionItems from "../../components/collection-item/CollectionItems";
+import CollectionsContext from "../../context/collections/CollectionContext"
 
 const CollectionPage = ({
-  match,
-  collection: { title, items },
-  displayCollection,
-  collection,
+  match
 }) => {
-  useEffect(
-    () => displayCollection(match.params.collectionId),
-    [displayCollection, match]
-  );
+  const collections = useContext(CollectionsContext)
+  const collection = collections[match.params.collectionId]
+  const { title, items} = collection
 
   return (
     <div className="collection-page">
@@ -25,8 +20,5 @@ const CollectionPage = ({
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  collection: state.collection.displayCollection,
-});
 
-export default connect(mapStateToProps, { displayCollection })(CollectionPage);
+export default CollectionPage;
