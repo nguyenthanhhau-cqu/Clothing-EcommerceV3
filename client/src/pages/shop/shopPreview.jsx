@@ -1,21 +1,20 @@
-import React from "react";
+import React,{useContext} from "react";
 import CollectionPreview from "../../components/collection-preview/CollectionPreview";
-import { connect } from "react-redux";
+import CollectionsContext from "../../context/collections/CollectionContext"
 
-const ShopPreview = ({  collection }) => {
-  console.log(collection)
+const ShopPreview = () => {
+  const collectionsMap = useContext(CollectionsContext);
+  const collections = Object.keys(collectionsMap).map(
+    key => collectionsMap[key]
+  );
 
   return (
     <div className="shop-page">
-      {collection.map(({ id, ...collectionProps }) => (
+      {collections.map(({ id, ...collectionProps }) => (
         <CollectionPreview key={id} {...collectionProps} />
       ))}
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  collection: state.collection.collections ? Object.keys(state.collection.collections).map(
-    (key) => state.collection.collections[key]
-  ) : []
-});
-export default connect(mapStateToProps, null)(ShopPreview);
+
+export default ShopPreview;

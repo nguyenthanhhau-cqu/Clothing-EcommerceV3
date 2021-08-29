@@ -1,15 +1,12 @@
-import React from "react";
-
+import React,{useContext} from "react";
 import "./CheckOutItemStyle.scss";
-import {
-  removeItem,
-  decreaseItem,
-  addItem,
-} from "../../redux/cart-reducer/cartAction.js";
-import { connect } from "react-redux";
+import {CartContext} from "../../provider/cart-provider/CartProvider";
 
-const CheckOutItem = ({ removeItem, cartItems, decreaseItem, addItem }) => {
-  const { id, name, imageUrl, price, quantity } = cartItems;
+const CheckOutItem = ({cartItems }) => {
+  const {  name, imageUrl, price, quantity } = cartItems;
+  const {decreaseItemAdded, addItem,clearItemFromCart } = useContext(CartContext)
+
+
   return (
     <div className="checkout-item">
       <div className="image-container">
@@ -18,7 +15,7 @@ const CheckOutItem = ({ removeItem, cartItems, decreaseItem, addItem }) => {
       <span className="name">{name}</span>
 
       <span className="quantity">
-        <div className="arrow" onClick={() => decreaseItem(cartItems)}>
+        <div className="arrow" onClick={() => decreaseItemAdded(cartItems)}>
           &#10094;
         </div>
         <span className="value">{quantity}</span>
@@ -27,13 +24,11 @@ const CheckOutItem = ({ removeItem, cartItems, decreaseItem, addItem }) => {
         </div>
       </span>
       <span className="price">{price}</span>
-      <div className="remove-button" onClick={() => removeItem(id)}>
+      <div className="remove-button" onClick={() => clearItemFromCart(cartItems)}>
         &#10005;
       </div>
     </div>
   );
 };
 
-export default connect(null, { removeItem, decreaseItem, addItem })(
-  CheckOutItem
-);
+export default CheckOutItem;

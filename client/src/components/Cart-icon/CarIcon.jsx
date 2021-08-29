@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ReactComponent as CartItem } from "../Assets/shopping-bag.svg";
 import "./CartIconStyle.scss";
-import { connect } from "react-redux";
-import { selectCartItemCount } from "../../redux/cart-reducer/cartSelector";
+import {CartContext} from "../../provider/cart-provider/CartProvider";
 
-const CartIcon = ({ itemCount }) => (
-  <div className="cart-icon">
+const CartIcon = () => {
+
+  const {toggleHidden,cartItemCount} = useContext(CartContext)
+  return (
+  <div className="cart-icon" onClick={()=> toggleHidden()}>
     <CartItem className="shopping-icon" />
-    <span className="item-count"> {itemCount} </span>
+    <span className="item-count"> {cartItemCount} </span>
   </div>
-);
-const mapStateToProps = (state) => {
-  return {
-    itemCount: selectCartItemCount(state),
-  };
+  )
 };
-export default connect(mapStateToProps)(CartIcon);
+
+export default CartIcon;

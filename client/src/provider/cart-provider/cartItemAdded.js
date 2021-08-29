@@ -17,3 +17,18 @@ export const decreaseItem = (items, itemRemoved) => {
     item.id === itemRemoved.id ? { ...item, quantity: item.quantity - 1 } : item
   );
 };
+export const getCartPrice = (cartItems) =>
+  cartItems &&
+  cartItems.reduce(
+    (accumulateValue, currentItem) =>
+      accumulateValue + currentItem.quantity * currentItem.price,
+    0
+  );
+export const getCartItem = (cartItems) =>
+  cartItems &&
+  cartItems.reduce(
+    (accumulateValue, currentItem) => accumulateValue + currentItem.quantity,
+    0
+  );
+export const filterItemFromCart = (cartItems, item) =>
+  cartItems.filter((cartItem) => cartItem.id !== item.id);

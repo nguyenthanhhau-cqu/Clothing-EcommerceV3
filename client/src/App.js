@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Homepage from "./pages/Home-page/Hompage";
 import {
@@ -11,11 +11,13 @@ import Shop from "./pages/shop/Shop";
 import Navigator from "./components/NavigationBar/Navigator";
 import SignInAndSignUp from "./pages/SignIn-SignUp-page/SignInAndSignUp";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
-import { connect } from "react-redux";
-import { setCurrentUser } from "./redux/user-reducer/userAction";
 import CheckOut from "./components/check-out-page/CheckOut";
+import CurrentUserContext from "./context/current-user/CurrentUserContext";
 
-function App({ setCurrentUser, currentUser }) {
+function App() {
+  const [currentUser, setCurrentUser] = useState({
+    currentUser: null,
+  });
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
@@ -25,8 +27,10 @@ function App({ setCurrentUser, currentUser }) {
       userRef.onSnapshot((snapShot) => {
         // to get the obj of user
         setCurrentUser({
-          id: snapShot.id,
-          ...snapShot.data(),
+          currentUser: {
+            id: snapShot.id,
+            ...snapShot.data(),
+          },
         });
       });
     });
@@ -34,7 +38,9 @@ function App({ setCurrentUser, currentUser }) {
 
   return (
     <Router>
-      <Navigator />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Navigator />
+      </CurrentUserContext.Provider>
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/shop" component={Shop} />
@@ -51,11 +57,4 @@ function App({ setCurrentUser, currentUser }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
-});
-const mapDispatchToProps = () => (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

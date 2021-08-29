@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import "./CheckOutStyle.scss";
-import { connect } from "react-redux";
 import CheckOutItem from "../check-out-items/CheckOutItem";
 import StripeCheckoutButton from "../../components/stripeButton/StripeButton";
-import { cartHidden } from "../../redux/cart-reducer/cartAction";
-const CheckOut = ({ totalPrice, cartItem, cartHidden }) => {
-  useEffect(() => cartHidden(), [cartHidden]);
+import { CartContext } from "../../provider/cart-provider/CartProvider";
+
+const CheckOut = () => {
+  const {cartItems,cartItemPrice} = useContext(CartContext)
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -25,27 +25,20 @@ const CheckOut = ({ totalPrice, cartItem, cartHidden }) => {
           <span>Remove</span>
         </div>
       </div>
-      {cartItem.map((item) => (
+      {cartItems && cartItems.map((item) => (
         <CheckOutItem key={item.id} cartItems={item} />
       ))}
 
-      <div className="total">${totalPrice}</div>
+      <div className="total">${cartItemPrice}</div>
       <div className="test-warning">
         *Please use the following test credit card for payments*
         <br />
         4242 4242 4242 4242 - Exp: 01/24 - CVV: 123
       </div>
-      <StripeCheckoutButton price={totalPrice} />
+      <StripeCheckoutButton price={cartItemPrice} />
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  totalPrice: state.cart.item.reduce(
-    (accumulateValue, currentItem) =>
-      accumulateValue + currentItem.quantity * currentItem.price,
-    0
-  ),
-  cartItem: state.cart.item,
-});
 
-export default connect(mapStateToProps, { cartHidden })(CheckOut);
+
+export default CheckOut;

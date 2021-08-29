@@ -1,22 +1,19 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { Route } from "react-router-dom";
-import { connect } from "react-redux";
-import {collectionActionAsync} from "../../redux/CollectionReducer/collectionAction"
-import CollectionContainer from "../../components/container/CollectionContainer";
-import ShopPreviewContainer from "../../components/container/ShopPreviewContainer";
+import CollectionPage from "../../pages/CollectionPage/CollectionPage";
+import ShopPreview from "../../pages/shop/shopPreview";
 
 
-const Shop = ({ match,collectionActionAsync }) => {
+
+
+const Shop = ({ match }) => {
   
-  useEffect(()=> {
-    collectionActionAsync()
-  },[collectionActionAsync])
   
   return(
   <div>
-    <Route exact path={`${match.path}`} component={ShopPreviewContainer} />
-    <Route path={`${match.path}/:collectionId`} component={CollectionContainer} />
+    <Route exact path={`${match.path}`} component={ShopPreview} />
+    <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
   </div>
 )
 };
-export default connect(null,{collectionActionAsync} )(Shop);
+export default Shop;

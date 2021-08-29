@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CollectionItems.scss";
 import CustomButton from "../custom-button/CustomButton";
-import { connect } from "react-redux";
-import { addItem } from "../../redux/cart-reducer/cartAction";
+import { CartContext } from "../../provider/cart-provider/CartProvider";
+const CollectionItems = ({ item }) => {
+const {addItem} = useContext(CartContext)
 
-const CollectionItems = ({ item, addItem }) => (
+return (
   <div className="collection-item">
     <div
       className="image"
@@ -21,5 +22,6 @@ const CollectionItems = ({ item, addItem }) => (
     </CustomButton>
   </div>
 );
+}
 
-export default connect(null, { addItem })(CollectionItems);
+export default CollectionItems;
