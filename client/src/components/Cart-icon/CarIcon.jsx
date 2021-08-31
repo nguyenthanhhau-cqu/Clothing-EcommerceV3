@@ -3,11 +3,11 @@ import { ReactComponent as CartItem } from "../Assets/shopping-bag.svg";
 import "./CartIconStyle.scss";
 import {CartContext} from "../../provider/cart-provider/CartProvider";
 
-const CartIcon = () => {
+const CartIcon = ({toggleCartHidden}) => {
 
-  const {toggleHidden,cartItemCount} = useContext(CartContext)
+  const {cartItemCount} = useContext(CartContext)
   return (
-  <div className="cart-icon" onClick={()=> toggleHidden()}>
+  <div className="cart-icon" onClick={()=> toggleCartHidden()}>
     <CartItem className="shopping-icon" />
     <span className="item-count"> {cartItemCount} </span>
   </div>

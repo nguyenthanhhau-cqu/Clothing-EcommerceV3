@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import "./CollectionItems.scss";
 import CustomButton from "../custom-button/CustomButton";
 import { CartContext } from "../../provider/cart-provider/CartProvider";
+
+
 const CollectionItems = ({ item }) => {
 const {addItem} = useContext(CartContext)
 

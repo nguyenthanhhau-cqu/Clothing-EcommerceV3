@@ -3,16 +3,13 @@ import { ReactComponent as Logo } from "../Assets/crown.svg";
 import { Link } from "react-router-dom";
 import "./NavigatorStyles.scss";
 import { auth } from "../../firebase/firebaseUtils";
-import CartIcon from "../Cart-icon/CarIcon";
-import CartDropdown from "../cart-dropdown/CartDropdown";
+import {default as CartIcon} from "../Cart-icon/CartIconContainer";
+import {default as CartDropdown} from "../cart-dropdown/CartDropDownContainer";
 import CurrentUserContext from "../../context/current-user/CurrentUserContext";
-import {CartContext} from "../../provider/cart-provider/CartProvider"
 
-const Navigator = () => {
+const Navigator = ({hidden}) => {
   const currentUser = useContext(CurrentUserContext)
-  const {hidden} = useContext(CartContext)
 
-  
   return (
     <div className="header">
       <Link className="logo-container" to="/">

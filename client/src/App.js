@@ -8,7 +8,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Shop from "./pages/shop/Shop";
-import Navigator from "./components/NavigationBar/Navigator";
+import { default as Navigator } from "./components/NavigationBar/NavigatorContainer";
 import SignInAndSignUp from "./pages/SignIn-SignUp-page/SignInAndSignUp";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
 import CheckOut from "./components/check-out-page/CheckOut";

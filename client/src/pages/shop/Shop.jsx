@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import CollectionPage from "../../pages/CollectionPage/CollectionPage";
-import ShopPreview from "../../pages/shop/shopPreview";
+import {default as CollectionPage} from "../../components/container/collection/CollectionPageContainer";
+import {default as ShopPreview} from "../../components/container/collection/CollectionContainer";
 
 
 

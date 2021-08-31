@@ -1,15 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./CollectionStyle.scss";
 import CollectionItems from "../../components/collection-item/CollectionItems";
-import CollectionsContext from "../../context/collections/CollectionContext"
 
 const CollectionPage = ({
-  match
+  collection
 }) => {
-  const collections = useContext(CollectionsContext)
-  const collection = collections[match.params.collectionId]
-  const { title, items} = collection
 
+  const { title, items} = collection
   return (
     <div className="collection-page">
       <h2 className="title">{title}</h2>
