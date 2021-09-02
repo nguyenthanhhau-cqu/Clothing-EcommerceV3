@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./CartDropdownStyle.scss";
 import CustomButton from "../custom-button/CustomButton";
 import CartItem from "../cart-item/cartItem";
 import { withRouter } from "react-router-dom";
-import { CartContext } from "../../provider/cart-provider/CartProvider";
 
-const CartDropdown = ({ history,toggleCartHidden }) => {
+const CartDropdown = ({ history,toggleCartHidden,cartItems }) => {
 
-  const {cartItems} = useContext(CartContext)
   return (
     <div className="cart-dropdown">
       <div className="cart-items">

@@ -1,11 +1,8 @@
-import React,{useContext} from "react";
+import React from "react";
 import "./CheckOutItemStyle.scss";
-import {CartContext} from "../../provider/cart-provider/CartProvider";
 
-const CheckOutItem = ({cartItems }) => {
+const CheckOutItem = ({cartItems,addItemToCart,decreaseItemFromCart,clearItemFromCart }) => {
   const {  name, imageUrl, price, quantity } = cartItems;
-  const {decreaseItemAdded, addItem,clearItemFromCart } = useContext(CartContext)
-
 
   return (
     <div className="checkout-item">
@@ -15,11 +12,11 @@ const CheckOutItem = ({cartItems }) => {
       <span className="name">{name}</span>
 
       <span className="quantity">
-        <div className="arrow" onClick={() => decreaseItemAdded(cartItems)}>
+        <div className="arrow" onClick={() => decreaseItemFromCart(cartItems)}>
           &#10094;
         </div>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={() => addItem(cartItems)}>
+        <div className="arrow" onClick={() => addItemToCart(cartItems)}>
           &#10095;
         </div>
       </span>

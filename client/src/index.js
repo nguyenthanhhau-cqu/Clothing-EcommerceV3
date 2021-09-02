@@ -23,6 +23,10 @@ const client = new ApolloClient({
 client.writeData({
   data: {
     cartHidden: true,
+    cartItems: [],
+    itemCount: 0,
+    totalPrice: 0,
+    currentUser: null,
   },
 });
 
@@ -47,10 +51,9 @@ client.writeData({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <CartProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </CartProvider>
+    <React.StrictMode />
   </ApolloProvider>,
   document.getElementById("root")
 );

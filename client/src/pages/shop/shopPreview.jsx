@@ -5,7 +5,7 @@ const ShopPreview = ({collections}) => {
   return (
     <div className="shop-page">
       {collections.map(({ id, ...collectionProps }) => (
-        <CollectionPreview key={id} {...collectionProps} />
+        <CollectionPreview key={id}  {...collectionProps} />
       ))}
     </div>
   );

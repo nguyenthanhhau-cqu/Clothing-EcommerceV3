@@ -5,16 +5,17 @@ import { gql } from "apollo-boost";
 import Navigator from "./Navigator"
 
 
-const GET_CART_HIDDEN = gql`
+const GET_CLIENT_PROPERTIES = gql`
   {
     cartHidden @client
+    currentUser @client
   }
 `;
 
 const NavigatorContainer = () => (
-    <Query query={GET_CART_HIDDEN}>
+    <Query query={GET_CLIENT_PROPERTIES}>
         {
-          ({data: {cartHidden}}) => <Navigator hidden= {cartHidden}/>
+          ({data: {cartHidden}}) => <Navigator  hidden= {cartHidden}/>
         }
     </Query>
 )

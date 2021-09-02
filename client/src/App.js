@@ -11,7 +11,7 @@ import Shop from "./pages/shop/Shop";
 import { default as Navigator } from "./components/NavigationBar/NavigatorContainer";
 import SignInAndSignUp from "./pages/SignIn-SignUp-page/SignInAndSignUp";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
-import CheckOut from "./components/check-out-page/CheckOut";
+import { default as CheckOut } from "./components/check-out-page/CheckOutContainer";
 import CurrentUserContext from "./context/current-user/CurrentUserContext";
 
 function App() {
